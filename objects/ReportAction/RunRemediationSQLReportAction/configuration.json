@@ -1,0 +1,1 @@
+{"name": "Run Remediation SQL Report Action", "description": "Automatically run the `remediation_sql` configured in the report attributes", "attributes": "attributes.json", "code": "main.py"}

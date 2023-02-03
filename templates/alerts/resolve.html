@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="w3-content w3-center w3-justify w3-padding-64" id="alerts">
+
+    <h1 class="w3-padding-16 ">Resolving </h1>
+    <h2>{{alert.name}}</h2><br>
+
+    <form action="/alerts/{{alert.id}}/submit_resolution" method="post">{%csrf_token%}
+        <div class="" style="outline: 2px solid red;"><h4 class="w3-center">{{ alert.name }}</h4>
+            {{alert.creation_date}}<br>{{alert.description|safe}}<br><br>
+            <h5 class="w3-center ">Resolution</h5>
+            <textarea minlength="150" class="" id="resolution" name="resolution" rows="10" cols="100">
+</textarea><br>
+            <button type="submit" class="w3-center w3-large w3-blue w3-round w3-hover-black">Resolve
+            </button>
+            <br><br>
+        </div>
+        <br><br>
+
+    </form>
+
+    <!-- End About Section -->
+</div>
+{% endblock content %}

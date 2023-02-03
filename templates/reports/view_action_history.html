@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<a class="w3-blue w3-round w3-hover-black w3-padding w3-left" href="/reports/">back</a>
+<div class="w3-row-padding w3-center" style="margin:0 -16px">
+    <!--content goes here-->
+    <h2>{{report.name}}</h2><br>
+    Report Actions
+
+    <table  id="mytable" style="width: 90%;margin:0 5%;" class=" w3-center ">
+        <thead>
+        <tr>
+            <th>Creation Date</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+        </thead>
+
+        {% for history in report_action_histories %}
+        <tbody>
+            <tr class="w3-padding-16  w3-center">
+                <td>{{history.creation_date}}</td>
+                <td>{{history.status}}</td>
+                <td>
+                    <button class="w3-blue w3-hover-black w3-round"><a
+                            href="/reports/{{ report.id }}/view_action_result/{{history.id}}">view details</a></button>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+
+
+    </table>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script type="text/css" src="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+
+    <script>
+//$(document).ready(function(){
+  ///  $('#mytable').dataTable();
+//});
+
+    </script>
+</div>
+{% endblock content %}

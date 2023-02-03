@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<script type="text/javascript" src="/static/django_site/js/report.js"></script>
+<script type="text/javascript" src="/static/alerts/js/index.js"></script>
+<div class="w3-content w3-center w3-justify w3-padding-64" id="alerts">
+
+    <h1 class="w3-padding-16 ">Alerts</h1>
+    {% if active_alerts|length > 0%}
+    {% for alert in active_alerts %}
+    <div  id="alert" class="" style="outline: 2px solid red;"><h4 class="w3-center">{{ alert.name }}</h4>
+        <p>{{alert.creation_date}}<br>{{alert.description|safe}}<br><br></p><button class="w3-large w3-blue w3-round w3-hover-black"><a href="/alerts/{{alert.id}}/resolve">resolve</a></button><br><br>
+    </div>
+    <br><br>
+    {% endfor %}
+    {%else%}
+    No alerts
+    {%endif%}
+
+    <h1 class="w3-padding-16 ">Resolved Alerts</h1>
+    {% if inactive_alerts|length > 0%}
+        <div class=" w3-center" id="alert_table"></div>
+    <button class="w3-blue w3-hover-black w3-round" id="download_csv_alert_table">download as .csv</button>
+    {%else%}
+    No resolved alerts
+    {%endif%}
+    <!-- End About Section -->
+</div>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];//+" "+tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = tr[i].getElementsByTagName("td")[0].textContent || tr[i].getElementsByTagName("td")[0].innerText;
+      txtValue = txtValue+ " "+tr[i].getElementsByTagName("td")[1].textContent || tr[i].getElementsByTagName("td")[1].innerText;
+      txtValue = txtValue+ " "+tr[i].getElementsByTagName("td")[4].textContent || tr[i].getElementsByTagName("td")[4].innerText;
+      if (txtValue.toUpperCase().includes(filter) ) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+
+
+</script>
+{% endblock content %}

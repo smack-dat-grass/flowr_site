@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+{% load user_filters %}
+
+
+<!-- Header/Home -->
+
+<div class="w3-row-padding w3-center" style="margin:0 15px">
+        <h3 class="w3-jumbo"><span class="w3-hide-small">Tools</span></h3>
+    <p>Tools to do IAM, better</p>
+<div class="w3-center">
+    <table style="width: 90%;margin:0 5%" class="w3-center ">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+
+        </tr>
+        <!--    <input type="text" id="myInput" class="w3-padding w3-round" style="width: 30%"  name="search_query" placeholder="enter keyword">-->
+        {% for tool in tools %}
+        {% if request.user|has_groups:tool.groups.all %}
+        <tr class="w3-padding-16   w3-center">
+            <td>{{tool.name}}</td>
+            <td>{{tool.description}}</td>
+
+            <td>
+                <form class="w3-center" method="post" action='/tools/{{tool.id}}/'>{% csrf_token %}
+                <button class="w3-blue w3-hover-black w3-round">select</button>
+                </form>
+            </td>
+        </tr>
+        {% elif tool.groups.all|length == 0 %}
+        <tr class="w3-padding-16   w3-center">
+            <td>{{tool.name}}</td>
+            <td>{{tool.description}}</td>
+
+            <td>
+                <form class="w3-center" method="post" action='/tools/{{tool.id}}/'>{% csrf_token %}
+                <button class="w3-blue w3-hover-black w3-round">select</button>
+                </form>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+
+</div>
+</div>
+{% endblock content %}

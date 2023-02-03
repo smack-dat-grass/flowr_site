@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<script type="text/javascript" src="/static/django_site/js/functions.js"></script>
+<script type="text/javascript" src="/static/reports/js/basic_report.js"></script>
+<script type="text/javascript" src="/static/django_site/js/report.js"></script>
+<script type="text/javascript" src="/static/django_site/js/theme.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div class="w3-row-padding"  style="margin:0 -16px">
+<div class="w3-center">
+            <input type="hidden" id="report_id" value="{{ report.id }}"/>
+            <input type="hidden" id="report_name" value="{{ report.name }}"/>
+            <input type="hidden" id="xaxislabel" value="{{ report.xaxis_label }}"/>
+            <input type="hidden" id="yaxislabel" value="{{ report.yaxis_label }}"/>
+    <button class="w3-blue w3-left w3-round w3-hover-black"><a class="" href="/reports/">Go Back</a></button>
+
+            <div id="report_div"><h3 class="">{{ report.name }}</h3>
+            <img src="https://thumbs.gfycat.com/OblongAntiqueAmurratsnake-size_restricted.gif" width="100" height="100"
+             id="report_table_loading">
+        <div class=" w3-center" id="report_table"></div>
+        <button class="w3-blue w3-hover-black w3-round" id="download_csv_report_table">download as .csv
+        </button>
+    </div>
+    </div>
+
+
+
+            <!-- End Grid/Pricing tables -->
+        </div>
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="w3-content w3-center w3-justify w3-padding-64" >
+
+
+    <h1 class="w3-padding-16 ">Health Checks</h1>
+    {% if health_checks|length > 0%}
+
+    <table id="myTable" style="margin-left: auto; margin-right: auto;table-layout: fixed; margin-left: auto; width 80%;" class=" w3-round">
+        <tr class=" w3-padding-32">
+            <th>Health Check Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Message</th>
+            <th>Last Refreshed</th>
+            <th>Action</th>
+        </tr>
+    {% for health_check in health_checks %}
+            <tr class="w3-padding-16 ">
+                <td>{{health_check.health_check.name}}</td>
+                <td>{{health_check.health_check.description}}</td>
+                <td><img width="20" height="20"  src="{{health_check.icon}}"></td>
+                <td>{{health_check.message|safe}}</td>
+                <td style="word-wrap: break-all;">{{health_check.creation_date}}</td>
+                <td><button class="w3-blue w3-hover-black w3-round" onclick="window.location.href = '/alerts/health_checks/{{health_check.health_check.id}}/historical_graph/1/';">view graph</button> </td>
+            </tr>
+
+    {% endfor %}
+        </table>
+    {%else%}
+    No healthchecks loaded
+    {%endif%}
+    <!-- End About Section -->
+</div>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];//+" "+tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = tr[i].getElementsByTagName("td")[0].textContent || tr[i].getElementsByTagName("td")[0].innerText;
+      txtValue = txtValue+ " "+tr[i].getElementsByTagName("td")[1].textContent || tr[i].getElementsByTagName("td")[1].innerText;
+      txtValue = txtValue+ " "+tr[i].getElementsByTagName("td")[4].textContent || tr[i].getElementsByTagName("td")[4].innerText;
+      if (txtValue.toUpperCase().includes(filter) ) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+
+
+</script>
+{% endblock content %}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/static/django_site/js/Chart.min.js"></script>
+
+
+</head>
+<body>
+<div>
+    <input type="hidden" id="report_id" value="{{ report.id }}"/>
+    <input type="hidden" id="report_name" value="{{ report.name }}"/>
+    <input type="hidden" id="xaxislabel" value="{{ report.xaxis_label }}"/>
+    <input type="hidden" id="yaxislabel" value="{{ report.yaxis_label }}"/>
+    <a href="/reports/" back>Go Back</a>
+    <canvas id="myChart" width="600" height="400"></canvas>
+</div>
+
+<script>
+    function loadJSON(path, success, error) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    if (success)
+                        success(JSON.parse(xhr.responseText));
+                } else {
+                    if (error)
+                        error(xhr);
+                }
+            }
+        };
+        xhr.open("GET", path, true);
+        xhr.send();
+    }
+
+    // getJSONP('http://soundcloud.com/oembed?url=http%3A//soundcloud.com/forss/flickermood&format=js&callback=?', function (data) {
+    //     console.log(data);
+    // });
+    console.log(document.getElementById("report_id").value)
+    url = '/reports/' + document.getElementById("report_id").value + '/getjsreport'
+    loadJSON(url,
+        function (data) {
+            console.log(data);
+            var config = {
+                type: 'bar',
+                data: {
+                    labels: data['labels'],
+                    datasets: data['datasets']
+                }
+
+            };
+//this is the new shit
+            var ctx = document.getElementById("myChart");
+            var myChart = new Chart(ctx, config);
+
+            console.log(config);
+            // var ctx = .getContext("2d");
+
+            // window.myLine = new Chart(ctx, config);
+            // console.log('done');
+        },
+        function (xhr) {
+            console.error(xhr);
+        }
+    );
+    console.log(url)
+</script>
+
+<br>
+
+</body>
+</html>

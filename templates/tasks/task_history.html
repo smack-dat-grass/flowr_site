@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="w3-row-padding" style="margin:0 -16px">
+<!--content goes here-->
+            <h2>{{ task.name }}</h2><br>
+{% for item in task_history %}
+            <h3>{{ task.task.name }}</h3><br>
+{% endfor %}
+<!--<a href="/tasks/{{ task.task.id }}/run">run task</a><br><br>-->
+<!--{% if not task.scheduled %}-->
+<!--<a href="/tasks/{{ task.task.id }}/schedule">schedule task</a><br><br>-->
+<!--{% endif %}-->
+<!--{% endfor %}-->
+<!--<h2>Tasks in Redis Queue</h2>-->
+<!--{% for task in queued_tasks %}-->
+<!--<b>{{ task.meta.task }}</b> <br>First scheduled: {{ task.created_at }} <br>runs every {{ task.meta.interval}} seconds<br><a-->
+<!--        href="/tasks/{{ task.id }}/cancel_redis_job">Cancel</a>-->
+<!--<br>-->
+{% endfor %}
+        </div>
+{% endblock content %}

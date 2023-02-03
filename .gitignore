@@ -1,0 +1,17 @@
+venv/
+venv/*
+config.json
+.DS_Store
+.idea/
+*.pyc
+db.sqlite3
+config.*
+*.key
+*.bak
+*.cls
+*.xlsx
+*.csv
+*.pyc
+migrations/
+*test.py
+django_site/django_site/settings.py

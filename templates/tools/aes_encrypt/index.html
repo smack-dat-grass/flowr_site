@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+{% load user_filters %}
+
+
+<!-- Header/Home -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/django_site/js/functions.js"></script>
+<script type="text/javascript" src="/static/tools/aes_encrypt/js/index.js"></script>
+
+<div class="w3-row-padding w3-center" style="margin:0 15px">
+            <h3 class="w3-jumbo"><span class="w3-hide-small">{{tool.name}}</span></h3>
+    <p>{{tool.description}}</p>
+    <input type="hidden" value="{{tool.id}}" id="tool_id">
+
+    <h4>Encryption Key</h4>
+    <input type="text" name="encryption_key" id="encryption_key"><br><br>
+    <h4>Value</h4>
+    <input type="text" name="encryption_value" id="encryption_value"><br><br>
+    <br><br><button id="encrypt_button" onclick="encrypt()" class="w3-blue w3-large w3-hover-black w3-round">Encrypt</button>
+    <br><br><button id="decrypt_button" onclick="decrypt()" class="w3-blue w3-large w3-hover-black w3-round">Decrypt</button>
+</div>
+{% endblock content %}

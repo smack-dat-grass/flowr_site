@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<script type="text/javascript" src="/static/django_site/js/report.js"></script>
+<script type="text/javascript" src="/static/reports/js/view_history.js"></script>
+<a class="w3-blue w3-round w3-hover-black w3-padding w3-left" href="/reports/">back</a>
+
+<input type="hidden" id="report_id" value="{{report.id}}"/>
+<div class="w3-row-padding w3-center" style="margin:0 -16px">
+
+    <h2> {{report.name}}</h2><br>
+    Report History
+    <div class=" w3-center" id="report_table"></div>
+    <button class="w3-blue w3-hover-black w3-round" id="download_csv_report_table">download as .csv</button>
+
+</div>
+{% endblock content %}

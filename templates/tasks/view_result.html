@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<a class="w3-blue w3-round w3-hover-black w3-padding w3-left" href="/tasks/{{task_result.task.id}}/view_results">back</a>
+<div class="w3-row-padding w3-center" style="margin:0 -16px">
+    <!--content goes here-->
+    <h2>{{task_result.task.name}}</h2><h2>Run time: {{task_result.start_time}}</h2><br>
+    <table style="width: 90%;margin:0 5%;"   class=" w3-center ">
+        <tr>
+            <th>Start Time</th>
+            <th>Completion Time</th>
+            <th>Messages</th>
+            <th>Errors</th>
+            <th>Results</th>
+            <th>Status</th>
+
+        </tr>
+        <tr class="w3-padding-16  w3-center">
+            <td>{{ task_result.start_time }}</td>
+            <td>{{ task_result.completion_time }}</td>
+            <td>{{ task_result.messages }}</td>
+            <td>{{ task_result.errors }}</td>
+            <td>{{ task_result.results }}</td>
+            <td>{{ task_result.status }}</td>
+        </tr>
+
+    </table>
+
+</div>
+{% endblock content %}

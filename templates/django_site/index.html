@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+{% block content %}
+{% load user_filters %}
+<script type="text/javascript" src="/static/django_site/js/index.js"></script>
+<script type="text/javascript" src="/static/django_site/js/report.js"></script>
+<div class="w3-padding-large" id="main">
+
+  <!-- Header/Home -->
+
+    <h1><span class="w3-hide-small">IAM Operations Dashboard</span> </h1>
+
+
+
+  <!-- About Section -->
+  <div class="w3-content w3-justify w3-padding-64 w3-center">
+    <h1 class=""><b>Notifications</b></h1>
+    <div id="notifications">{% if notifications|length > 0%}
+      {% for notification in notifications %}
+      <div style="outline: 2px solid lightgray; id='notifications[]'"><h4 class="w3-center">{{ notification.name }}</h4>
+        {{notification.creation_date}}<br>{{notification.description|safe}}
+      </div>
+      <br><br>
+      {% endfor %}
+      {%else%}
+      No notifications
+      {%endif%}</div>
+    <div id="health_violators">
+
+
+      <h1><b>Django Site Health</b></h1>
+      <p id="django_site_health_message">The following table shows objects within Django Site that have been identified as out of sync. If no records are present, the system is up to date.</p>
+      <img src="https://thumbs.gfycat.com/OblongAntiqueAmurratsnake-size_restricted.gif" width="100" height="100"
+             id="django_site_health_table_loading">
+      <div class=" w3-center" id="django_site_health_table"></div>
+<button class="w3-blue w3-hover-black w3-round" id="download_csv_django_site_health_table">download as .csv
+        </button>
+
+    </div>
+    <div id="alerts"><h1 class=""><b>Alerts</b></h1>
+
+      {% if alerts|length > 0%}
+      {% for alert in alerts %}
+      <div class="" style="outline: 2px solid red;"><h4 class="w3-center">{{ alert.name }}</h4>
+        {{alert.creation_date}}<br>{{alert.description|safe}}
+      </div>
+      <br><br>
+      {% endfor %}
+      {%else%}
+      No alerts
+      {%endif%}</div>
+
+    <div id="health_check_alerts"><h1 class=""><b>Health Check Alerts</b></h1>
+      {% if health_checks|length > 0%}
+      {% for health_check in health_checks %}
+      <div class="" style="outline: 2px solid lightgray;"><h4 class="w3-center">{{ health_check.health_check.name }}</h4><br>{{health_check.message|safe}}<br><br><img width="75" height="75" src="{{health_check.icon}}"> <br>
+        <br></div>
+      <br><br>
+      {%endfor%}
+      {% else %}
+      All health checks successful
+      {% endif %}</div>
+
+
+  </div>
+
+
+  <!-- End About Section -->
+  </div>
+
+{% endblock content %}

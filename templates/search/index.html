@@ -1,0 +1,34 @@
+
+{% extends "base.html" %}
+{% block content %}
+{% load user_filters %}
+<script type="text/javascript" src="/static/django_site/js/functions.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/search/js/index.js"></script>
+
+  <!-- Header/Home -->
+  <header class="w3-center " id="home">
+    <h3 class="w3-jumbo"><span class="w3-hide-small">Search</span> </h3>
+    <p>Search all of IAM at the click of a button</p>
+  </header>
+<form class="w3-center" method="post" action='/search/results/'>{% csrf_token %}
+    <input type="text" id="myInput" class="w3-padding w3-round" style="width: 30%"  name="search_query" placeholder="enter keyword" required><select onchange="showDescription(this.value);"  class="w3-padding w3-blue w3-round" name="type">
+        <option disabled selected value> -- Select a Search Type-- </option>
+    {% for type in object_types %}
+{% if type.group is not None %}
+                {% if request.user|has_group:type.group.name %}
+
+    <option  style="width: 30%"  name="{{type.name}}" value="{{type.name}}">{{type.name}}</option>
+
+    {% endif %}
+    {% else %}
+    <option style="width: 30%"  name="{{type.name}}" value="{{type.name}}">{{type.name}}</option>
+    {% endif %}
+    {% endfor %}
+</select><br><br>
+    <button id="submit" type="submit" class="w3-blue w3-hover-black w3-round w3-padding" style="width: 10%">search</button>
+
+<h3 id="description"></h3>
+
+</form>
+{% endblock content %}

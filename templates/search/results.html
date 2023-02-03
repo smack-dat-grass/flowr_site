@@ -1,0 +1,62 @@
+
+{% extends "base.html" %}
+{% block content %}
+{% load user_filters %}
+
+<a class="w3-blue w3-round w3-hover-black w3-padding w3-left" href="/search/">back</a>
+  <!-- Header/Home -->
+<div class="w3-row-padding w3-center" style="margin:0 15px">
+    <h3 class="w3-jumbo w3-center"><span class="w3-hide-small">Results</span> </h3>
+    <input type="hidden" id="query" name="query" value="{{query}}">
+    <input type="hidden" id="type" name="type" value="{{type}}">
+    <p>Query: {{query}}</p><p>Object Type: {{type}}</p>
+  <div id="progress_div"><h3 class="w3-jumbo"><span class="w3-hide-small">Loading</span></h3>
+
+  </div>
+    <div id="stopwatch">
+    <div id="search_time_text">Search Time</div>
+  <!-- CURRENT TIME -->
+  <div id="sw-time">00:00:00</div>
+
+  <!-- CONTROLS -->
+<!--  <input type="button" value="Reset" id="sw-rst" disabled/>-->
+<!--  <input type="button" value="Start" id="sw-go" disabled/>-->
+</div>
+
+</div>
+<div id="parent"></div>
+<script type="text/css">
+    /* (A) CONTAINER */
+#stopwatch {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* (B) TIME */
+#sw-time {
+  width: 100%;
+  padding: 20px 0;
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+  background: #000;
+  color: #fff;
+}
+
+/* (C) BUTTONS */
+#sw-rst, #sw-go {
+  box-sizing: border-box;
+  width: 50%;
+  cursor: pointer;
+  padding: 20px 0;
+  border: 0;
+  color: #fff;
+  font-size: 20px;
+}
+#sw-rst { background-color: #a32208; }
+#sw-go { background-color: #20a308; }
+</script>
+<script type="text/javascript" src="/static/search/js/results.js"></script>
+{% endblock content %}

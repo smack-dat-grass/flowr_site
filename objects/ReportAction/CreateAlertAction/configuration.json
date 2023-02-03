@@ -1,0 +1,1 @@
+{"name": "Create Alert Action", "description": "Create an alert showing threshold, current value and a custom message", "attributes": "attributes.json", "code": "main.py"}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<a class="w3-blue w3-round w3-hover-black w3-padding w3-left" href="/reports/">back</a>
+<div class="w3-row-padding w3-center" style="margin:0 -16px">
+    <!--content goes here-->
+    <h2>{{report.name}}</h2><br>
+    Report Actions
+    <table style="width: 90%;margin:0 5%;"   class=" w3-center ">
+        <tr>
+            <th>Name</th>
+            <th>Creation Date</th>
+            <th>Action</th>
+
+        </tr>
+        {% for action in report_actions %}
+        <tr class="w3-padding-16  w3-center">
+            <td>{{action.name}}</td>
+            <td>{{action.creation_date}}</td>
+            <td>
+                <button class="w3-blue w3-hover-black w3-round"><a href="/reports/{{ report.id }}/view_action_history/{{action.id}}">view history</a></button>
+            </td>
+            {% endfor %}</td>
+        </tr>
+
+
+    </table>
+
+</div>
+{% endblock content %}

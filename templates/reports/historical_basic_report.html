@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="w3-row-padding"  style="margin:0 -16px">
+
+            <input type="hidden" id="report_id" value="{{ report.id }}"/>
+            <input type="hidden" id="report_name" value="{{ report.name }}"/>
+            <input type="hidden" id="history_id" value="{{ history.id }}"/>
+
+    <button class="w3-blue w3-round w3-hover-black"><a class="" href="/reports/{{report.id}}/view_history">Go Back</a></button>
+            <h3 class="w3-center">{{ report.name }}</h3>
+            <div id="example-table"></div>
+    <div class="w3-center"><b><p class="w3-center" id="count"></p></b>
+        <p>Last Update Time: {{ last_refresh }} </p>
+        <button class="w3-blue w3-hover-black w3-round w3-center" id="download-csv">download as .csv</button>
+    </div>
+
+            <script>
+                function loadJSON(path, success, error) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                if (success)
+                                    success(JSON.parse(xhr.responseText));
+                            } else {
+                                if (error)
+                                    error(xhr);
+                            }
+                        }
+                    };
+                    xhr.open("GET", path, true);
+                    xhr.send();
+                }
+
+                console.log(document.getElementById("report_id").value)
+                url = '/reports/' + document.getElementById("report_id").value + '/getjsreport_history/'+document.getElementById("history_id").value
+                loadJSON(url,
+                    function (data) {
+                        console.log(data);
+                        var tabledata = data['response'];
+
+                        document.getElementById('count').innerHTML = tabledata.length.toString().concat(' entries')
+
+                        var table = new Tabulator("#example-table", {
+                            layout: "fitDataStretch",
+                            data: tabledata,
+                            autoColumns: true,
+                            movableRows: true,
+                            pagination: "local",
+                            movableColumns: true,
+                            paginationSize: 10,
+                            paginationSizeSelector: [10, 20, 50, 100, 200, 500],
+                        });
+                        document.getElementById("download-csv").addEventListener("click", function () {
+                            table.download("csv", "data.csv");
+                        });
+                    },
+                    function (xhr) {
+                        console.error(xhr);
+                    }
+                );
+                console.log(url)
+            </script>
+
+            <!-- End Grid/Pricing tables -->
+        </div>
+{% endblock content %}

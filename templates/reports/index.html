@@ -1,0 +1,123 @@
+<!-- Main content -->
+{% extends "base.html" %}
+{% block content %}
+<script type="text/javascript">
+    function selectAll() {
+
+
+
+        var items = document.getElementsByName('download_reports[]');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox' && items[i].offsetParent !=null)
+                items[i].checked = true;
+        }
+    }
+
+    function UnSelectAll() {
+        var items = document.getElementsByName('download_reports[]');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox' && items[i].offsetParent!=null)
+                items[i].checked = false;
+        }
+    }
+</script>
+{% load user_filters %}
+<!--    <h3 class="w3-padding-16 " id="reports">Reports</h3>-->
+<div class="w3-row-padding w3-center" style="margin:0 15px">
+    <h2>Available Reports</h2>
+    <p>click a report to view</p>
+    <p>select report(s) to download</p>
+    <div class="w3-padding-large w3-center">
+        <input type="text" id="myInput" style="width: 30%" onkeyup="myFunction()"
+               placeholder="Search reports by name, tags, group, schedule or description">
+        <form name="report_download_form" method="post" action="/reports/download_reports/">{% csrf_token %}
+            <table id="myTable" style="width: 90%;margin:0 5%" class=" w3-center ">
+                <tr>
+                    <th>Report Name</th>
+                    <th>Description</th>
+                    <th>Source</th>
+                    <th>Schedule</th>
+                    <th>Group</th>
+                    <th>Tags</th>
+                    <th><input type="button" class="w3-hover-black w3-round" onclick='selectAll()' value="Select All"/>
+                    <input type="button" class="w3-hover-black w3-round" onclick='UnSelectAll()' value="Deselect All"/>
+                    <button type="submit" class="w3-hover-black w3-round" id="download-csv">download selected</button>
+                    </th>
+                <th></th>
+                </tr>
+
+
+                {% for report in reports %}
+
+                {% if report.group is not None %}
+                {% if request.user|has_group:report.group.name %}
+                <tr class="w3-padding-16   w3-center">
+                    <td>{{ report.name }}</td>
+                    <td>{{ report.description }}</td>
+                    <td>{{ report.connection.name }}</td>
+                    <td>{%for k,v in report_schedules.items%}{% if k == report.name%}{% for r in v%}{{r.schedule.name}}<br>{% endfor%}{%endif%}{%endfor%}</td>
+                    <td>{{ report.group.name }}</td>
+                    <td>{% for tag in report.tags.all %}<p class="w3-light-blue w3-round" style="color: blue;">{{tag}}</p> {%endfor%}</td>
+                    <td><input type="checkbox" name="download_reports[]" value="{{ report.id }}"></td>
+                    <td><button type="button" class="w3-blue w3-hover-black w3-round"><a href="/reports/{{ report.id }}/get">view</a></button>{% if report.type == 'basic' %}<button type="button" class="w3-blue w3-hover-black w3-round"><a href="/reports/{{ report.id }}/view_history">view history</a></button>{%endif%}<button  type="button" class="w3-blue w3-hover-black w3-round"><a href="/reports/{{ report.id }}/view_actions">view actions</a></button></td>
+                </tr>
+                {% endif %}
+                {% else %}
+                <tr class="w3-padding-16   w3-center">
+                    <td>{{ report.name }}</td>
+                    <td>{{ report.description }}</td>
+                    <td>{{ report.connection.name }}</td>
+                    <td>{%for k,v in report_schedules.items%}{% if k == report.name%}{% for r in v%}{{r.schedule.name}}<br>{% endfor%}{%endif%}{%endfor%}</td>
+                    <td>{{ report.category.name }}</td>
+                    <td>{% for tag in report.tags.all %}<p class="w3-light-blue w3-round" style="color: blue;">{{tag}}</p> {%endfor%}</td>
+                    <td><input type="checkbox" name="download_reports[]" value="{{ report.id }}"></td>
+                    <td><button type="button" class="w3-blue w3-hover-black w3-round"><a href="/reports/{{ report.id }}/get">view</a></button>{% if report.type == 'basic' %}<button type="button" class="w3-blue w3-hover-black w3-round"><a href="/reports/{{ report.id }}/view_history">view history</a></button>{%endif%}<button  type="button" class="w3-blue w3-hover-black w3-round"><a href="/reports/{{ report.id }}/view_actions">view actions</a></button></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                <tr class="w3-padding-16   w3-center">
+
+                </tr>
+            </table>
+            <br>
+
+        </form>
+    </div>
+
+</div>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+  if (i==tr.length-1){
+  continue
+  }
+    td = tr[i].getElementsByTagName("td")[0];//+" "+tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = tr[i].getElementsByTagName("td")[0].textContent || tr[i].getElementsByTagName("td")[0].innerText;
+      txtValue = txtValue+ " "+tr[i].getElementsByTagName("td")[2].textContent || tr[i].getElementsByTagName("td")[2].innerText;
+      txtValue = txtValue+ " "+tr[i].getElementsByTagName("td")[4].textContent || tr[i].getElementsByTagName("td")[4].innerText;
+      txtValue = txtValue+ " "+tr[i].getElementsByTagName("td")[5].textContent || tr[i].getElementsByTagName("td")[5].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+
+
+</script>
+
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="w3-row-padding w3-center" style="margin:0 -16px">
+    <!--content goes here-->
+    <h2>Available Tasks</h2><br>
+    <table style="width: 90%;margin:0 5%;"   class=" w3-center ">
+        <tr>
+            <th>Task Name</th>
+            <th>Description</th>
+            <th>Action</th>
+
+        </tr>
+        {% for task in tasks %}
+        <tr class="w3-padding-16  w3-center">
+            <td>{{ task.task.name }}</td>
+            <td>{{ task.task.description }}</td>
+            <td>
+                <button class="w3-blue w3-hover-black w3-round"><a href="/tasks/{{ task.task.id }}/run">run task</a></button>
+                {% if not task.scheduled %}
+                <button class="w3-blue w3-hover-black w3-round"><a href="/tasks/{{ task.task.id }}/schedule">schedule task</a></button>
+                {% else%}
+
+                {% endif %}
+                <button class="w3-blue w3-hover-black w3-round"><a href="/tasks/{{ task.task.id }}/view_results">view results</a></button>
+            </td>
+            {% endfor %}</td>
+        </tr>
+
+
+    </table>
+    <h2>Tasks in Redis Queue</h2>
+    <table style="width: 90%;margin:0 5%" class=" w3-center ">
+        <tr>
+            <th>Task Name</th>
+            <th>First Scheduled</th>
+            <th>Interval</th>
+            <th>Action</th>
+
+        </tr>
+        {% for task in queued_tasks %}
+        <tr class="w3-padding-16  w3-center">
+            <td>{{ task.meta.task }}</td> <td>{{ task.created_at }}</td> <td>{{ task.meta.interval}}
+            seconds</td><td><button class="w3-blue w3-hover-black w3-round"><a
+            href="/tasks/{{ task.id }}/cancel_redis_job">Cancel</a></button></td>
+
+            </tr>
+        {% endfor %}
+
+    </table>
+</div>
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<a class="w3-blue w3-round w3-hover-black w3-padding w3-left" href="/reports/{{report.id}}/view_action_history/{{action_result.report_action.id}}">back</a>
+<div class="w3-row-padding w3-center" style="margin:0 -16px">
+    <!--content goes here-->
+    <h2>{{action_result.report_action.name}}</h2><h2>Run time: {{action_result.creation_date}}</h2><br>
+    <table style="width: 90%;margin:0 5%;"   class=" w3-center ">
+        <tr>
+            <th>Start Time</th>
+            <th>Attributes</th>
+            <th>Status</th>
+
+        </tr>
+        <tr class="w3-padding-16  w3-center">
+            <td>{{ action_result.creation_date}}</td>
+            <td>{{ action_result.attributes }}</td>
+            <td>{{ action_result.status }}</td>
+        </tr>
+
+    </table>
+
+</div>
+{% endblock content %}

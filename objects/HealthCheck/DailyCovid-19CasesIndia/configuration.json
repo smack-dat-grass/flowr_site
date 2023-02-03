@@ -1,0 +1,1 @@
+{"name": "Daily Covid-19 Cases India", "description": "Check if new cases in India exceeds 50 thousand in the last 24 hours", "attributes": "attributes.json", "code": "main.py"}

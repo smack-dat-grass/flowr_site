@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<script type="text/javascript" src="/static/django_site/js/report.js"></script>
+<script type="text/javascript" src="/static/tasks/js/task_history.js"></script>
+<button class="w3-left w3-blue w3-hover-black w3-round" onclick="window.location.href = '/tasks/'">back</button>
+<div class="w3-row-padding" style="margin:0 -16px">
+    <input type="hidden" id="task_id" value="{{ task.id }}">
+            <h2>{{ task.name }}</h2><br>
+        <div class=" w3-center" id="task_table"></div>
+    <button class="w3-blue w3-hover-black w3-round" id="download_csv_task_table">download as .csv</button>
+
+
+        </div>
+{% endblock content %}

@@ -1,0 +1,1 @@
+{"name": "Execute Generated SQL Report Action", "description": "Run the generated SQL for each record in the report. Requires a column in the report to contain valid SQL statements, specified by the 'index' report trigger ", "attributes": "attributes.json", "code": "main.py"}
