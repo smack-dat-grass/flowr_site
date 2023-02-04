@@ -32,7 +32,7 @@ DEBUG =True
 # DEBUG = os.getenv('DEBUG', False) == 'True'
 # print(DEBUG)
 TEMPLATE_DEBUG=False
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 ENCRYPTION_KEY=b"aWIh9sojhlQKDsimtE8QUkPLyVWYVx-1122KaDDj_rY="
 # Application definition

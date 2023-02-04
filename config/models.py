@@ -60,19 +60,7 @@ class NavigationLink(models.Model):
 
     def __str__(self):
         return f"{self.name} {self.location}"
-#just to create a generic object to store GE Busineses
-#this is at the IFG level
-class GEBusiness(models.Model):
-    name=models.CharField(max_length=250, null=False)
-    def __str__(self):
-        return self.name
-#map an auth group to a GE business, initial use in fnsso management
-class GEBusinessGroup(models.Model):
-    group = models.ForeignKey("auth.Group", null=False, blank=False, on_delete=models.CASCADE)
-    business=models.ForeignKey(GEBusiness, null=False, blank=False, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"{self.group} {self.business}"
 #temporary until sso is enabled. Require everyone to reset their password on initial login
 class PasswordResetEvent(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

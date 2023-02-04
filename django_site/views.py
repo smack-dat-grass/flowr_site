@@ -47,7 +47,7 @@ def get_django_site_health(request):
         response = {'message': build_tabulator_basic_data(generate_django_site_health()), 'status':'success'}
         # response = {'message': 'fuckeryduckery', 'status':'success'}
         pass
-        # health_objects=generate_ops_dashboard_health()
+        # health_objects=generate_django_site_health()
         # for x in data_dict['health_violators']:
         #     print(x)
     except:

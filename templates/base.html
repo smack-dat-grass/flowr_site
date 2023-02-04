@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 {% load user_filters %}
-<title>IGA Operations Dashboard</title>
+<title>Django Site</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/static/django_site/css/w3.css">
@@ -67,9 +67,8 @@ body.loading .overlay{
 
 <nav >
     <!-- Avatar image in top left corner -->
-    <img id="ge_logo" src=""
-         style="width:100%">
-    IAM Operations Dashboard<br>
+
+    Django Site<br>
         {% if user.is_authenticated %}
         {% if user.first_name|length > 1%}
         <br>Welcome, {{ user.first_name }}!<br>
@@ -80,7 +79,7 @@ body.loading .overlay{
 <br>Selected Theme<br>
     <select name="theme" id="theme" onchange="changeTheme($(this).val());" class="w3-round w3-blue" >
         <option value="darkstar" selected>Dark Star</option>
-        <option value="idm">IDM</option>
+        <option value="idm">White Rabbit</option>
         <option value="blue">Blue</option>
         <option value="red">Red</option>
     </select><br><br>
