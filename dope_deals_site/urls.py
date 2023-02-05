@@ -1,4 +1,4 @@
-"""django_site URL Configuration
+"""dope_deals_site URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include, path
 from django.contrib import admin
-from django_site import views
+from dope_deals_site import views
 
 from django.conf.urls import url
 from django.contrib import admin
@@ -27,7 +27,7 @@ from django.conf import settings
 from .password_reset.views import password_reset
 urlpatterns = [
     path('', views.index, name='index'),
-    path('get_django_site_health/', views.get_django_site_health, name='get_django_site_health'),
+    path('get_dope_deals_site_health/', views.get_dope_deals_site_health, name='get_dope_deals_site_health'),
     path('admin/', admin.site.urls),
     path('redirect/<str:path>/', views.redirect),
     path('accounts/', include('django.contrib.auth.urls')),
@@ -43,8 +43,8 @@ urlpatterns = [
     url(r'password_reset/', password_reset, name='password_reset'),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-handler404 = 'django_site.views.handler404'
-handler500 = 'django_site.views.handler500'
+handler404 = 'dope_deals_site.views.handler404'
+handler500 = 'dope_deals_site.views.handler500'
 
 # urlpatterns = [
 #     path('admin/', admin.site.urls),

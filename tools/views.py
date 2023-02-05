@@ -8,7 +8,7 @@ from django.urls import reverse
 # from datetime import  datetime
 from django.template import loader
 from django.contrib import messages
-from django_site.decorators import requires_password_reset
+from dope_deals_site.decorators import requires_password_reset
 
 
 

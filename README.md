@@ -1,2 +1,2 @@
-# django_site
-# django_site
+# dope_deals_site
+# dope_deals_site

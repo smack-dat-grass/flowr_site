@@ -21,7 +21,7 @@ from django.utils import timezone
 # Create your views here.
 from config.decorators import can_access_url
 from django.contrib.auth.decorators import login_required
-from django_site.decorators import requires_password_reset
+from dope_deals_site.decorators import requires_password_reset
 from reports.functions import build_tabulator_basic_data
 @login_required(login_url='/accounts/login')
 @can_access_url

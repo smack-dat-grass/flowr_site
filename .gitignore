@@ -1,3 +1,4 @@
+*.sqlite3
 venv/
 venv/*
 config.json
@@ -14,4 +15,4 @@ config.*
 *.pyc
 migrations/
 *test.py
-django_site/django_site/settings.py
+dope_deals_site/dope_deals_site/settings.py

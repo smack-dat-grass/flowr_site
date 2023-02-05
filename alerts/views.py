@@ -6,7 +6,7 @@ from django.utils.timezone import now
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from config.decorators import can_access_url
-from django_site.decorators import requires_password_reset
+from dope_deals_site.decorators import requires_password_reset
 from django.contrib.auth.decorators import login_required
 from reports.functions import build_tabulator_basic_data
 @login_required(login_url='/accounts/login')

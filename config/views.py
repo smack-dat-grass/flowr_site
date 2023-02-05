@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .models import Connection
 from django.conf import settings
 from .functions import test_connection as _test_connection, close_connection as _close_connection, open_connection as _open_connection
-from django_site.decorators import requires_password_reset
+from dope_deals_site.decorators import requires_password_reset
 # Create your views here.
 def index(request):
     pass
