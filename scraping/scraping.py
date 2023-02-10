@@ -15,8 +15,8 @@ def build_webdriver():
     WINDOW_SIZE = "1920,1080"
 
     chrome_options = Options()
-    # chrome_options.headless=True
-    # chrome_options.add_argument("--start-minimized")
+    chrome_options.headless=True
+    chrome_options.add_argument("--start-minimized")
     chrome_options.binary_location = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
     driver = webdriver.Chrome(executable_path='../chromedriver', chrome_options=chrome_options)

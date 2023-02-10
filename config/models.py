@@ -10,6 +10,7 @@ MYSQL_CONNECTOR_TYPE='mysql'
 LDAP_CONNECTOR_TYPE='ldap'
 POSTGRE_CONNECTOR_TYPE='postgre/greenplum'
 API_CONNECTOR_TYPE='api'
+WEBSOURCE_CONNECTOR_TYPE='websource'
 class Credential(models.Model):
     name=models.CharField(max_length=150, null=False, default="Credentials")
     username=models.CharField(max_length=50, null=False)
@@ -23,7 +24,7 @@ class Credential(models.Model):
     def __str__(self):
         return self.name
 class Connection(models.Model):
-    type=models.CharField(max_length=25,choices=((ORACLE_CONNECTOR_TYPE,ORACLE_CONNECTOR_TYPE), (MYSQL_CONNECTOR_TYPE, MYSQL_CONNECTOR_TYPE), (LDAP_CONNECTOR_TYPE ,LDAP_CONNECTOR_TYPE),(API_CONNECTOR_TYPE ,API_CONNECTOR_TYPE),( POSTGRE_CONNECTOR_TYPE,POSTGRE_CONNECTOR_TYPE)), default='oracle', null=False)
+    type=models.CharField(max_length=25,choices=((ORACLE_CONNECTOR_TYPE,ORACLE_CONNECTOR_TYPE), (MYSQL_CONNECTOR_TYPE, MYSQL_CONNECTOR_TYPE), (LDAP_CONNECTOR_TYPE ,LDAP_CONNECTOR_TYPE),(API_CONNECTOR_TYPE ,API_CONNECTOR_TYPE),( POSTGRE_CONNECTOR_TYPE,POSTGRE_CONNECTOR_TYPE), (WEBSOURCE_CONNECTOR_TYPE,WEBSOURCE_CONNECTOR_TYPE)), default=WEBSOURCE_CONNECTOR_TYPE, null=False)
     name=models.CharField(max_length=100, null=False)
     host=models.CharField(max_length=200, null=False)
     port=models.CharField(max_length=5, null=False, default='69')

@@ -9,6 +9,8 @@ from pymysqlpool import  pool
 from django.conf import settings
 import cx_Oracle,json,pymysql
 import requests
+from django.utils.timezone import now
+
 class APIConnector:
     POST='POST'
     GET='GET'
