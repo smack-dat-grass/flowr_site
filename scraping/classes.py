@@ -1,7 +1,9 @@
+import json
 import traceback
-
+from products.classes import ProductType
 from selenium.common import TimeoutException
 
+from selenium.webdriver.support import expected_conditions as ec
 
 class WebSource:
     driver = None
@@ -14,6 +16,14 @@ class WebSource:
         raise NotImplementedError
     def load_dispensaries(self, location):
         raise NotImplementedError
+
+    def load_products(self):
+        raise NotImplementedError
+    def scrap_data(self):
+        raise NotImplementedError
+
+    def process_thc_deals(self,  products, dispensary, product_type=ProductType.FLOWER):
+        raise NotImplementedError
     # def open_connection(self):
     #     raise NotImplementedError
     # def close_connection(self):
@@ -21,7 +31,7 @@ class WebSource:
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+
 # from functions import  load_module_config,strip_special_chars,strip_alphabetic_chars,read_csv, write_csv as _write_csv
 from tabulate import tabulate
 # from ready_up import  initialize
@@ -93,3 +103,117 @@ class Dutchie(WebSource):
         # print(f"Found {len(dispensaries.keys())} dispenaries in {location}")
         # self.driver.get(self.connection.host)
         return dispensaries
+
+    def load_products(self):
+        wait = WebDriverWait(self.driver,30)
+
+        for i in range(0,20):
+            # for element  in driver.find_element(By.CSS_SELECTOR, 'html[data-js-focus-visible=""]'):
+            self.driver.find_element(By.CSS_SELECTOR, 'html[data-js-focus-visible=""]').send_keys(Keys.PAGE_DOWN)
+            # html.send_keys(Keys.PAGE_DOWN)
+            # time.sleep(3)
+        wait.until(ec.presence_of_all_elements_located((By.CSS_SELECTOR, 'img[class="product-image__LazyLoad-sc-16rwjkk-0 busNCP desktop-product-list-item__Image-sc-8wto4u-2 ipJspp lazyloaded"]')))
+        # ?page = 2
+        products = self.scrape_data(self.driver.find_elements(By.CSS_SELECTOR, 'div[data-testid="product-list-item"]'))
+        # gt_100 = len(products) > 99
+        # page = page+1
+        pages = WebDriverWait(self.driver, 30).until(ec.presence_of_all_elements_located((By.CSS_SELECTOR, 'div[class="media-query__ContentDiv-sc-18mweoi-0 hrGTDA"]')))
+        del pages[0]
+        del pages[-1]
+        product_url = self.driver.current_url
+        # while gt_100:
+        try:
+            for i in range(2,max([int(x.text) for x in pages])+1):
+                page = i
+                print(f"Loading page {page} of {self.driver.current_url}")
+                # f"{dispens/ary.url}{json.loads(self.connection.attributes)['urls'][kwargs['type']]}"
+                stripped_url =product_url.split("?")[0]
+                self.driver.get(f"{stripped_url}?page={page}")
+                for i in range(0, 20):
+                    # for element  in driver.find_element(By.CSS_SELECTOR, 'html[data-js-focus-visible=""]'):
+                    self.driver.find_element(By.CSS_SELECTOR, 'html[data-js-focus-visible=""]').send_keys(
+                        Keys.PAGE_DOWN)
+                    # html.send_keys(Keys.PAGE_DOWN)
+                    # time.sleep(3)
+                _products = wait.until(ec.presence_of_all_elements_located((By.CSS_SELECTOR,'img[class="product-image__LazyLoad-sc-16rwjkk-0 busNCP desktop-product-list-item__Image-sc-8wto4u-2 ipJspp lazyloaded"]')))
+                # _products = self.load_products(page)
+                products = self.scrape_data(_products) + products
+        except:
+            traceback.print_exc()
+
+            # deals += self.scrape_data(_products)
+
+
+        return products
+
+    def scrape_data(self,data):
+        results = []
+        for element in data:
+            try:
+                results.append(element.text.replace("\n",json.loads(self.connection.attributes)['delimiter']))
+            except:
+                traceback.print_exc()
+                print(f"could not load data for element {element.text}")
+        return results
+
+    def process_thc_deals(self, products, dispensary, product_type=ProductType.FLOWER):
+        thc_objects = []
+        for deal in products:
+            if 'thc' not in deal.lower():
+                continue
+            # print(deal)
+            product= {}
+            data = deal.split(json.loads(self.connection.attributes)['delimiter'])
+            # product = Product()
+
+            product['raw'] = data
+            while data[0] in ['Staff Pick', 'Special offer'] or '$' in data[0]:
+                del data[0]
+            product['dispensary'] = dispensary
+            product['producer'] = data[0]
+            product['name'] = data[1]
+
+            try:
+                if data[2].lower() not in ['indica', 'sativa', 'hybrid', 'high cbd']:
+                    data.insert(2, 'n/a')
+                    # print('hmm')
+                product ['type'] = data[2]
+            except:
+                traceback.print_exc()
+
+                continue  # skip if this is the case
+            try:
+                if "|" in data[3]:
+                    product['thc'] = data[3].split('|')[0].strip().split("THC: ")[-1]
+                else:
+                    product['thc'] = data[3].strip().split("THC: ")[-1]
+            except:
+                traceback.print_exc()
+                pass
+            # if '%'data[-1]:
+
+            if '%' in data[-1]:
+                product['price'] = data[-2]
+                if type == ProductType.EDIBLES:
+                    product['quantity'] = '1'
+                else:
+                    product['quantity'] = data[-3] if '$' not in data[-3] else data[-4]
+
+            else:
+                product['price'] = data[-1]
+                if type == ProductType.EDIBLES:
+                    product['quantity'] = '1'
+                else:
+                    product['quantity'] = data[-2]
+            # print(deal)
+            # print(product)
+            # if type==ProductType.EDIBLES:
+            #     try:
+            #         product.smooth_edible_data()
+            #     except:
+            #         traceback.print_exc()
+            #         pass
+            thc_objects.append(product)
+        # product.save()
+        # thc_object.calculate_10mg_cost()
+        return thc_objects
