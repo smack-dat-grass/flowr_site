@@ -37,6 +37,7 @@ urlpatterns = [
     path('alerts/', include('alerts.urls')),
     path('search/', include('search.urls')),
     path('config/', include('config.urls')),
+    path('api/', include('api.urls')),
     path('tools/', include('tools.urls')),
     path('status/', include('health_check.urls')),
     path('django-rq/', include('django_rq.urls')),

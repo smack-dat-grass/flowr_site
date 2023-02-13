@@ -12,8 +12,10 @@ from scraping.functions import load_dispensary_data
 # start_time = time.time()
 # #so basically queue up the locations we want to run for
 for connection in Connection.objects.filter(type=WEBSOURCE_CONNECTOR_TYPE):
-    cities = [x for x in  City.objects.filter(state=State.objects.filter(code='MI')[0]).order_by('last_refreshed')[:30]]
-    process_list_concurrently(cities,load_dispensary_data,json.loads(task.attributes)['load_size'], {'class':json.loads(connection.attributes)['class']})
+    cities = [x for x in  City.objects.filter(state__in=State.objects.filter(legal=True)).order_by('last_refreshed')]
+    for x in cities:
+        print(f"{x.name}: {x.last_refreshed}")
+    # process_list_concurrently(cities,load_dispensary_data,json.loads(task.attributes)['load_size'], {'class':json.loads(connection.attributes)['class']})
 #     # def process_list_concurrently(data, process_function, batch_size):
 #     module = importlib.import_module("scraping.classes")
 #     class_ = getattr(module, json.loads(connection.attributes)['class'])

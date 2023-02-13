@@ -48,9 +48,10 @@ INSTALLED_APPS = [
     'tasks',
     'search',
     'tools',
-    'dispensaries',
-    'locations',
     'products',
+    'locations',
+    'dispensaries',
+    'scraping',
     'taggit',
     'health_check',
     'health_check.db',  # stock Django health checkers
@@ -152,7 +153,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 # TEMPLATE_DIRS = [os.path.join(f"{BASE_DIR}/reports/", 'templates')]
 RQ_QUEUES = {
-    "default": {"HOST": "localhost", "PORT": 6379, "DB": 0, "DEFAULT_TIMEOUT": 7200,},
+    "default": {"HOST": "localhost", "PORT": 6379, "DB": 0, "DEFAULT_TIMEOUT": 21000,},
 }
 
 # from .task_loader import run

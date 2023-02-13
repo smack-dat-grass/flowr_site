@@ -14,16 +14,24 @@ class WebSource:
         raise NotImplementedError
     def build_webdriver(self):
         raise NotImplementedError
-    def load_dispensaries(self, location):
-        raise NotImplementedError
-
-    def load_products(self):
-        raise NotImplementedError
     def scrap_data(self):
         raise NotImplementedError
 
+    def load_dispensaries(self, location):
+        raise NotImplementedError
+class StrainWebSource(WebSource):
+    def load_strains(self):
+        pass
+    def load_strain_details(self):
+        pass
+class ProductWebSource(WebSource):
+
+
+    def load_products(self):
+        raise NotImplementedError
     def process_thc_deals(self,  products, dispensary, product_type=ProductType.FLOWER):
         raise NotImplementedError
+
     # def open_connection(self):
     #     raise NotImplementedError
     # def close_connection(self):
@@ -38,7 +46,7 @@ from tabulate import tabulate
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-class Dutchie(WebSource):
+class Dutchie(ProductWebSource):
 
     def build_webdriver(self):
         CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
@@ -59,8 +67,9 @@ class Dutchie(WebSource):
         age_restriction_btn.click()
 
 
+
     def load_dispensaries(self, location):
-        wait = WebDriverWait(self.driver, 30)
+        wait = WebDriverWait(self.driver, 50)
         self.driver.get(self.connection.host)
         search_bar = wait.until(ec.presence_of_all_elements_located((By.CSS_SELECTOR, 'input[data-testid="homeAddressInput"]')))[0]
         # search_bar = self.driver.find_element(By.CSS_SELECTOR, 'input[data-testid="homeAddressInput"]')
@@ -105,7 +114,7 @@ class Dutchie(WebSource):
         return dispensaries
 
     def load_products(self):
-        wait = WebDriverWait(self.driver,30)
+        wait = WebDriverWait(self.driver,50)
 
         for i in range(0,20):
             # for element  in driver.find_element(By.CSS_SELECTOR, 'html[data-js-focus-visible=""]'):
@@ -117,7 +126,7 @@ class Dutchie(WebSource):
         products = self.scrape_data(self.driver.find_elements(By.CSS_SELECTOR, 'div[data-testid="product-list-item"]'))
         # gt_100 = len(products) > 99
         # page = page+1
-        pages = WebDriverWait(self.driver, 30).until(ec.presence_of_all_elements_located((By.CSS_SELECTOR, 'div[class="media-query__ContentDiv-sc-18mweoi-0 hrGTDA"]')))
+        pages = WebDriverWait(self.driver, 50).until(ec.presence_of_all_elements_located((By.CSS_SELECTOR, 'div[class="media-query__ContentDiv-sc-18mweoi-0 hrGTDA"]')))
         del pages[0]
         del pages[-1]
         product_url = self.driver.current_url

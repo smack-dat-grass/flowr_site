@@ -12,5 +12,6 @@ from scraping.functions import load_dispensary_data,load_product_data
 # start_time = time.time()
 # #so basically queue up the locations we want to run for
 for _type in json.loads(task.attributes)['product_types']:
-    dispensaries = [x for x in  Dispensary.objects.filter(city__in=City.objects.filter(state=State.objects.filter(code='MI')[0])).order_by('last_refreshed')[:30]]
+    dispensaries = [x for x in  Dispensary.objects.all().order_by('last_refreshed')]
+    # print(f"Processing {len(dispensaries)}")
     process_list_concurrently(dispensaries,load_product_data,json.loads(task.attributes)['load_size'], {"type":_type,'class':json.loads(dispensaries[0].connection.attributes)['class']})
