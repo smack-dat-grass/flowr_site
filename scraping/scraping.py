@@ -17,6 +17,7 @@ def build_webdriver():
     chrome_options = Options()
     chrome_options.headless=True
     chrome_options.add_argument("--start-minimized")
+    chrome_options.add_argument("--disable-gpu")
     chrome_options.binary_location = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
     driver = webdriver.Chrome(executable_path='../chromedriver', chrome_options=chrome_options)
