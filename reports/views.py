@@ -15,7 +15,7 @@ from .classes import  Workbook
 from django.contrib import messages
 from django.http import FileResponse
 import traceback
-from dope_deals_site.decorators  import requires_password_reset
+from flowr_site.decorators  import requires_password_reset
 @requires_password_reset
 def index(request):
     template = loader.get_template('reports/index.html')
@@ -35,7 +35,7 @@ def index(request):
 
 def download_reports(request):
     try:
-        filename=f"Dope Deals Report.xlsx"
+        filename=f"Flowr Report.xlsx"
         global_workbook = Workbook(filename)
         print(request.POST)
         for report_id in request.POST.getlist('download_reports[]'):

@@ -27,4 +27,4 @@ try:
     #     create_alert(f'{report.name}', f"Pending FNSSO requests in InfraIDM exceeds {attributes['threshold']}. The current backlog count is {(len(report_history)-1)-len(inactive_offenders)}.<br><br>Please investigate, see <a href='/reports/{report.id}/get'>the report</a> for details")
 except Exception as e:
     ora_conn.close_connection()
-    create_alert(f'{report.name}',f"Dope Deals was unable to run the remediation sql for {report.name} as a result of the following error: {str(e)}. This may require manual intervention")
+    create_alert(f'{report.name}',f"Flowr was unable to run the remediation sql for {report.name} as a result of the following error: {str(e)}. This may require manual intervention")

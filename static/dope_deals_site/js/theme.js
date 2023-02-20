@@ -38,7 +38,7 @@ function changeTheme(theme){
         $('#notifications').children('div').addClass('w3-black')
         $('#health_check_alerts').children('div').removeClass('w3-black w3-white')
         $('#health_check_alerts').children('div').addClass('w3-black')
-        $('#table_theme_div').append('<link href="/static/dope_deals_site/css/tabulator_midnight.min.css" rel="stylesheet">');
+        $('#table_theme_div').append('<link href="/static/flowr_site/css/tabulator_midnight.min.css" rel="stylesheet">');
     }else if (theme=='idm'){
         $('body').removeClass();
         $('body').addClass('w3-light-gray w3-text-black w3-center');
@@ -68,7 +68,7 @@ function changeTheme(theme){
 
         $('#health_check_alerts').children('div').removeClass('w3-black w3-white')
         $('#health_check_alerts').children('div').addClass('w3-white')
-        $('#table_theme_div').append('<link href="/static/dope_deals_site/css/tabulator_simple.min.css" rel="stylesheet">');
+        $('#table_theme_div').append('<link href="/static/flowr_site/css/tabulator_simple.min.css" rel="stylesheet">');
 
 }else if (theme=='green'){
         $('body').removeClass();
@@ -98,7 +98,7 @@ function changeTheme(theme){
         $('#notifications').children('div').addClass('w3-white')
         $('#health_check_alerts').children('div').removeClass('w3-black w3-white')
         $('#health_check_alerts').children('div').addClass('w3-white')
-        $('#table_theme_div').append('<link href="/static/dope_deals_site/css/tabulator_modern.min.css" rel="stylesheet">');
+        $('#table_theme_div').append('<link href="/static/flowr_site/css/tabulator_modern.min.css" rel="stylesheet">');
 }else if (theme=='red'){
         $('body').removeClass();
         $('body').addClass('w3-light-grey w3-text-black w3-center');
@@ -129,7 +129,7 @@ function changeTheme(theme){
         $('#notifications').children('div').addClass('w3-white')
         $('#health_check_alerts').children('div').removeClass('w3-black w3-white')
         $('#health_check_alerts').children('div').addClass('w3-white')
-        $('#table_theme_div').append('<link href="/static/dope_deals_site/css/tabulator_simple.min.css" rel="stylesheet">');
+        $('#table_theme_div').append('<link href="/static/flowr_site/css/tabulator_simple.min.css" rel="stylesheet">');
 
 
 }    setCookie('theme', theme, 365);

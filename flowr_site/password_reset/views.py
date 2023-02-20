@@ -27,6 +27,6 @@ def password_reset(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'dope_deals_site/password_reset.html', {
+    return render(request, 'flowr_site/password_reset.html', {
         'form': form
     })

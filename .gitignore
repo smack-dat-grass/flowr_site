@@ -15,4 +15,4 @@ config.*
 *.pyc
 migrations/
 *test.py
-dope_deals_site/dope_deals_site/settings.py
+flowr_site/flowr_site/settings.py

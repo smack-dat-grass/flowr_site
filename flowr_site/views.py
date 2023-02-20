@@ -17,7 +17,7 @@ from django.contrib import messages
 from django.template import RequestContext
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from .decorators import requires_password_reset
-from dope_deals_site.functions import generate_dope_deals_site_health
+from flowr_site.functions import generate_flowr_site_health
 
 @requires_password_reset
 def index(request):
@@ -27,7 +27,7 @@ def index(request):
     #
     # Event.objects.filter(start_datetime__lte=datetime.now() + timedelta(days=1))
     # Notification.objects.filter(start_datetime__gte=datetime.now())
-    template = loader.get_template('dope_deals_site/index.html')
+    template = loader.get_template('flowr_site/index.html')
     print(len(Notification.objects.filter(expiration_date__gte=datetime.now())))
     health_checks=[]
     # messages.info(request, "here's your message")
@@ -42,12 +42,12 @@ def index(request):
 
     return HttpResponse(template.render(data_dict, request) )
 
-def get_dope_deals_site_health(request):
+def get_flowr_site_health(request):
     try:
-        response = {'message': build_tabulator_basic_data(generate_dope_deals_site_health()), 'status':'success'}
+        response = {'message': build_tabulator_basic_data(generate_flowr_site_health()), 'status':'success'}
         # response = {'message': 'fuckeryduckery', 'status':'success'}
         pass
-        # health_objects=generate_dope_deals_site_health()
+        # health_objects=generate_flowr_site_health()
         # for x in data_dict['health_violators']:
         #     print(x)
     except:
@@ -57,11 +57,11 @@ def get_dope_deals_site_health(request):
 
     return JsonResponse(response,content_type='application/javascript')
 
-def handler404(request, exception, template_name="dope_deals_site/404.html"):
+def handler404(request, exception, template_name="flowr_site/404.html"):
     template = loader.get_template(template_name)
     return HttpResponse(template.render({}, request) )
 
-def handler500(request, template_name="dope_deals_site/500.html"):
+def handler500(request, template_name="flowr_site/500.html"):
     return HttpResponse(loader.get_template(template_name).render({}),request)
 
 def redirect(request,path):

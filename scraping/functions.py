@@ -11,7 +11,7 @@ from config.models import Connection,WEBSOURCE_CONNECTOR_TYPE
 import importlib
 import os
 import django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dope_deals_site.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "flowr_site.settings")
 django.setup()
 from products.classes import ProductType
 from products.models import Product

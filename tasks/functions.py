@@ -545,7 +545,7 @@ def action_report(report):
             report_action_history.status = "Completed"
             report_action_history.save()
         except Exception as e:
-            create_alert(report.name, f"An error occurred actioning the report: <br><br>{str(e)}<br><br>Please resolve for a full Dope Deals experience")
+            create_alert(report.name, f"An error occurred actioning the report: <br><br>{str(e)}<br><br>Please resolve for a full Flowr experience")
             print(f'we ran into an error running {report.action.name}')
             print(traceback.format_exc())
             report_action_history.status = "Completed With Errors"

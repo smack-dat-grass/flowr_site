@@ -14,7 +14,7 @@ from django.template import loader
 # from .classes import  Workbook
 # from django.http import FileResponse
 from django.contrib import messages
-from dope_deals_site.decorators import requires_password_reset
+from flowr_site.decorators import requires_password_reset
 @requires_password_reset
 def index(request):
     template = loader.get_template('search/index.html')

@@ -2,8 +2,8 @@ import json
 from datetime import datetime
 from reports.models import Report, ReportSchedule, ReportHistory
 from tasks.models import Task, TaskSchedule, TaskResult
-from dope_deals_site.classes import DjangoSiteHealth
-def generate_dope_deals_site_health():
+from flowr_site.classes import DjangoSiteHealth
+def generate_flowr_site_health():
     violators = []
     violators += generate_report_health()
     violators += generate_task_health()
